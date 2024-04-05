@@ -144,12 +144,12 @@ jobs:
       - name: Zip images
         run: |
           cd ./Firmware/
-          zip chr-${{matrix.version}}.qcow2.zip chr-efi.qcow2
-          zip chr-${{matrix.version}}.vmdk.zip chr-efi.vmdk
-          zip chr-${{matrix.version}}.vhd.zip chr-efi.vhd
-          zip chr-${{matrix.version}}.vhdx.zip chr-efi.vhdx
-          zip chr-${{matrix.version}}.vdi.zip chr-efi.vdi
-          zip chr-${{matrix.version}}.img.zip chr-efi.img
+          zip chr-${{matrix.version}}-arm64.qcow2.zip chr-efi.qcow2
+          zip chr-${{matrix.version}}-arm64.vmdk.zip chr-efi.vmdk
+          zip chr-${{matrix.version}}-arm64.vhd.zip chr-efi.vhd
+          zip chr-${{matrix.version}}-arm64.vhdx.zip chr-efi.vhdx
+          zip chr-${{matrix.version}}-arm64.vdi.zip chr-efi.vdi
+          zip chr-${{matrix.version}}-arm64.img.zip chr-efi.img
           ls -l ./
 
       - name: Upload Firmware to release
