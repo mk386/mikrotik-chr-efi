@@ -159,6 +159,6 @@ jobs:
           allowUpdates: true
           removeArtifacts: true
           tag: ${{matrix.version}}_GPT
-          commit: master
+          commit: main
           token: ${{ secrets.PERSONAL_TOKEN }}
           artifacts: ./Firmware/*.zip
