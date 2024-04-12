@@ -1,0 +1,224 @@
+set matrix.version 7.14.2
+
+# - name: Initialize environment
+sudo -E apt update
+sudo -E apt -y install curl qemu-utils rsync unzip zip dosfstools gdisk
+
+# - name: Load nbd module
+sudo -E modprobe nbd
+
+
+
+
+
+
+#curl -skL --retry 3 --connect-timeout 3 -o chr.img.zip https://download.mikrotik.com/routeros/${{matrix.version}}/chr-${{matrix.version}}.img.zip
+# https://cdn.mikrotik.com/routeros/7.15beta9/chr-7.15beta9-arm64.img.zip
+curl -skL --retry 3 --connect-timeout 3 -o chr.img.zip https://download.mikrotik.com/routeros/7.14.2/chr-7.14.2.img.zip
+curl -skL --retry 3 --connect-timeout 3 -o chr.img.zip https://download.mikrotik.com/routeros/7.15beta9/chr-7.15beta9-arm64.img.zip
+
+unzip chr.*.zip
+rm -rf chr.*.zip
+
+
+# - name: Convert to qcow2
+qemu-img convert -f raw -O qcow2 chr-*.img chr.qcow2
+cp -af chr.qcow2 chr-efi.qcow2
+rm -rf chr-*.img
+
+
+# - name: Connect ndb
+sudo -E qemu-nbd -c /dev/nbd0 chr.qcow2
+sudo -E qemu-nbd -c /dev/nbd1 chr-efi.qcow2
+
+# - name: Format boot partition
+sudo -E mkfs -t fat /dev/nbd1p1
+
+# - name: Create tmp dir
+sudo -E rm -rf /tmp/chr*
+sudo -E mkdir /tmp/chr-bios/
+sudo -E mkdir /tmp/chr-efi/
+
+# - name: Mount
+sudo -E mount /dev/nbd0p1 /tmp/chr-bios/
+sudo -E mount /dev/nbd1p1 /tmp/chr-efi/
+
+# - name: Sync files
+sudo -E rsync -a /tmp/chr-bios/ /tmp/chr-efi/
+
+# - name: Umount
+sudo -E umount /dev/nbd0p1
+sudo -E umount /dev/nbd1p1
+
+# - name: remove tmp dir
+sudo -E rm -rf /tmp/chr*
+
+# -------------
+# - name: modify partition table
+  (
+  echo 2 # use GPT
+  echo t # change partition code
+  echo 1 # select first partition
+  echo 8300 # change code to Linux filesystem 8300
+  echo r # Recovery/transformation
+  echo h # Hybrid MBR
+  echo 1 2 # partitions added to the hybrid MBR
+  echo n # Place EFI GPT (0xEE) partition first in MBR (good for GRUB)? (Y/N)
+  echo   # Enter an MBR hex code (default 83)
+  echo y # Set the bootable flag? (Y/N)
+  echo   # Enter an MBR hex code (default 83)
+  echo n # Set the bootable flag? (Y/N)
+  echo n # Unused partition space(s) found. Use one to protect more partitions? (Y/N)
+  echo w # write changes to disk
+  echo y # confirm
+  ) | sudo -E gdisk /dev/nbd1
+
+# -------------------------------------------------------------------------------------------------------------------------
+
+root@GreenCloud:~# sudo -E gdisk /dev/nbd1
+GPT fdisk (gdisk) version 1.0.6
+
+Partition table scan:
+  MBR: MBR only
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid MBR and GPT. Which do you want to use?
+ 1 - MBR
+ 2 - GPT
+ 3 - Create blank GPT
+
+Your answer: 2
+Using GPT and creating fresh protective MBR.
+
+Command (? for help): t
+Partition number (1-2): 1
+Current type is EF00 (EFI system partition)
+Hex code or GUID (L to show codes, Enter = EF00): 8300
+Changed type of partition to 'Linux filesystem'
+
+Command (? for help): r
+
+Recovery/transformation command (? for help): h
+
+WARNING! Hybrid MBRs are flaky and dangerous! If you decide not to use one,
+just hit the Enter key at the below prompt and your MBR partition table will
+be untouched.
+
+Type from one to three GPT partition numbers, separated by spaces, to be
+added to the hybrid MBR, in sequence: 1 2
+Place EFI GPT (0xEE) partition first in MBR (good for GRUB)? (Y/N): n
+
+Creating entry for GPT partition #1 (MBR partition #1)
+Enter an MBR hex code (default 83):
+Set the bootable flag? (Y/N): y
+
+Creating entry for GPT partition #2 (MBR partition #2)
+Enter an MBR hex code (default 83):
+Set the bootable flag? (Y/N): n
+
+Unused partition space(s) found. Use one to protect more partitions? (Y/N): n
+
+Recovery/transformation command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): y
+OK; writing new GUID partition table (GPT) to /dev/nbd1.
+The operation has completed successfully.
+root@GreenCloud:~#
+
+
+# -------------------------------------------------------------------------------------------------------------------------
+# ARM64
+
+root@GreenCloud:~# sudo -E gdisk /dev/nbd1
+GPT fdisk (gdisk) version 1.0.6
+
+Partition table scan:
+  MBR: MBR only
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid MBR and GPT. Which do you want to use?
+ 1 - MBR
+ 2 - GPT
+ 3 - Create blank GPT
+
+Your answer: 2
+Using GPT and creating fresh protective MBR.
+
+Command (? for help): t
+Partition number (1-2): 1
+Current type is EF00 (EFI system partition)
+Hex code or GUID (L to show codes, Enter = EF00): 8300
+Changed type of partition to 'Linux filesystem'
+
+Command (? for help): r
+
+Recovery/transformation command (? for help): h
+
+WARNING! Hybrid MBRs are flaky and dangerous! If you decide not to use one,
+just hit the Enter key at the below prompt and your MBR partition table will
+be untouched.
+
+Type from one to three GPT partition numbers, separated by spaces, to be
+added to the hybrid MBR, in sequence: 1 2
+Place EFI GPT (0xEE) partition first in MBR (good for GRUB)? (Y/N): n
+
+Creating entry for GPT partition #1 (MBR partition #1)
+Enter an MBR hex code (default 83):
+Set the bootable flag? (Y/N): y
+
+Creating entry for GPT partition #2 (MBR partition #2)
+Enter an MBR hex code (default 83):
+Set the bootable flag? (Y/N): n
+
+Unused partition space(s) found. Use one to protect more partitions? (Y/N): n
+
+Recovery/transformation command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): y
+OK; writing new GUID partition table (GPT) to /dev/nbd1.
+The operation has completed successfully.
+root@GreenCloud:~#
+# -------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+# - name: Disconnect ndb
+sudo -E qemu-nbd -d /dev/nbd0
+sudo -E qemu-nbd -d /dev/nbd1
+
+# - name: Remove old
+rm -rf chr.qcow2
+
+# - name: Convert images
+mkdir -p ./Firmware/
+cp -f chr-efi.qcow2 ./Firmware/
+qemu-img convert -f qcow2 -O vmdk chr-efi.qcow2 ./Firmware/chr-efi.vmdk
+qemu-img convert -f qcow2 -O vpc chr-efi.qcow2 ./Firmware/chr-efi.vhd
+qemu-img convert -f qcow2 -O vhdx chr-efi.qcow2 ./Firmware/chr-efi.vhdx
+qemu-img convert -f qcow2 -O vdi chr-efi.qcow2 ./Firmware/chr-efi.vdi
+qemu-img convert -f qcow2 -O raw chr-efi.qcow2 ./Firmware/chr-efi.img
+ls -l ./Firmware
+
+# - name: Zip images
+cd ./Firmware/
+zip chr-${{matrix.version}}.qcow2.zip chr-efi.qcow2
+zip chr-${{matrix.version}}.vmdk.zip chr-efi.vmdk
+zip chr-${{matrix.version}}.vhd.zip chr-efi.vhd
+zip chr-${{matrix.version}}.vhdx.zip chr-efi.vhdx
+zip chr-${{matrix.version}}.vdi.zip chr-efi.vdi
+zip chr-${{matrix.version}}.img.zip chr-efi.img
+ls -l ./
+
+
+
