@@ -1,0 +1,83 @@
+
+curl -skL --retry 3 --connect-timeout 3 -o chr.img.zip https://download.mikrotik.com/routeros/7.15beta9/chr-7.15beta9-arm64.img.zip
+
+unzip chr.*.zip
+rm -rf chr.*.zip
+
+
+# - name: Convert to qcow2
+qemu-img convert -f raw -O qcow2 chr-*.img chr.qcow2
+cp -af chr.qcow2 chr-efi.qcow2
+rm -rf chr-*.img
+
+
+# - name: Connect ndb
+sudo -E qemu-nbd -c /dev/nbd0 chr.qcow2
+sudo -E qemu-nbd -c /dev/nbd1 chr-efi.qcow2
+
+# - name: Format boot partition
+sudo -E mkfs -t fat /dev/nbd1p1
+
+# - name: Create tmp dir
+sudo -E rm -rf /tmp/chr*
+sudo -E mkdir /tmp/chr-bios/
+sudo -E mkdir /tmp/chr-efi/
+
+# - name: Mount
+sudo -E mount /dev/nbd0p1 /tmp/chr-bios/
+sudo -E mount /dev/nbd1p1 /tmp/chr-efi/
+
+# - name: Sync files
+sudo -E rsync -a /tmp/chr-bios/ /tmp/chr-efi/
+
+# - name: Umount
+sudo -E umount /dev/nbd0p1
+sudo -E umount /dev/nbd1p1
+
+# - name: remove tmp dir
+sudo -E rm -rf /tmp/chr*
+
+# -------------
+# - name: modify partition table
+  (
+  echo 2 # use GPT
+  echo t # change partition code
+  echo 1 # select first partition
+  echo 8300 # change code to Linux filesystem 8300
+  echo r # Recovery/transformation
+  echo h # Hybrid MBR
+  echo 1 2 # partitions added to the hybrid MBR
+  echo n # Place EFI GPT (0xEE) partition first in MBR (good for GRUB)? (Y/N)
+  echo   # Enter an MBR hex code (default 83)
+  echo y # Set the bootable flag? (Y/N)
+  echo   # Enter an MBR hex code (default 83)
+  echo n # Set the bootable flag? (Y/N)
+  echo n # Unused partition space(s) found. Use one to protect more partitions? (Y/N)
+  echo w # write changes to disk
+  echo y # confirm
+  ) | sudo -E gdisk /dev/nbd1
+
+# -------------------------------------------------------------------------------------------------------------------------
+
+root@GreenCloud:~# sudo -E gdisk /dev/nbd1
+GPT fdisk (gdisk) version 1.0.6
+
+
+# - name: Disconnect ndb
+sudo -E qemu-nbd -d /dev/nbd0
+sudo -E qemu-nbd -d /dev/nbd1
+
+# - name: Remove old
+rm -rf chr.qcow2
+
+# - name: Convert images
+mkdir -p ./Firmware/
+cp -f chr-efi.qcow2 ./Firmware/
+qemu-img convert -f qcow2 -O vmdk chr-efi.qcow2 ./Firmware/chr-efi.vmdk
+qemu-img convert -f qcow2 -O vpc chr-efi.qcow2 ./Firmware/chr-efi.vhd
+qemu-img convert -f qcow2 -O vhdx chr-efi.qcow2 ./Firmware/chr-efi.vhdx
+qemu-img convert -f qcow2 -O vdi chr-efi.qcow2 ./Firmware/chr-efi.vdi
+qemu-img convert -f qcow2 -O raw chr-efi.qcow2 ./Firmware/chr-efi.img
+ls -l ./Firmware
+
+
