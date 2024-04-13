@@ -5,6 +5,11 @@ unzip chr.*.zip
 rm -rf chr.*.zip
 
 
+
+# - name: Load nbd module
+sudo -E modprobe nbd
+
+
 # - name: Convert to qcow2
 qemu-img convert -f raw -O qcow2 chr-*.img chr.qcow2
 cp -af chr.qcow2 chr-efi.qcow2
