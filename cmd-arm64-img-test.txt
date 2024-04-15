@@ -1,0 +1,36 @@
+
+# Initialize environment
+sudo -E apt update
+sudo -E apt -y install curl qemu-utils rsync unzip zip dosfstools gdisk tree
+
+# Download image for ARM64
+curl -skL --retry 3 --connect-timeout 3 -o chr.img.zip https://download.mikrotik.com/routeros/7.15beta9/chr-7.15beta9-arm64.img.zip
+unzip chr.*.zip
+rm -rf chr.*.zip
+
+# Load nbd module
+sudo -E modprobe nbd
+
+# Convert to qcow2
+qemu-img convert -f raw -O qcow2 chr-*.img chr.qcow2
+
+# Connect ndb
+sudo -E qemu-nbd -c /dev/nbd0 chr.qcow2
+
+# Create tmp dir
+sudo -E rm -rf /tmp/chr*
+sudo -E mkdir /tmp/chr-p1/
+sudo -E mkdir /tmp/chr-p2/
+
+# Mount
+sudo -E mount /dev/nbd0p1 /tmp/chr-p1/
+sudo -E mount /dev/nbd0p2 /tmp/chr-p2/
+
+# List all files on partition-1
+tree /tmp/chr-p1
+
+# List all files on partition-2
+tree /tmp/chr-p2
+
+
+

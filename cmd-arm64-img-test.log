@@ -1,0 +1,47 @@
+root@debian-4gb-fsn1-2:~# curl -skL --retry 3 --connect-timeout 3 -o chr.img.zip https://download.mikrotik.com/routeros/7.15beta9/chr-7.15beta9-arm64.img.zip
+unzip chr.*.zip
+rm -rf chr.*.zip
+Archive:  chr.img.zip
+  inflating: chr-7.15beta9-arm64.img
+root@debian-4gb-fsn1-2:~# # Load nbd module
+sudo -E modprobe nbd
+root@debian-4gb-fsn1-2:~# qemu-img convert -f raw -O qcow2 chr-*.img chr.qcow2
+root@debian-4gb-fsn1-2:~# sudo -E qemu-nbd -c /dev/nbd0 chr.qcow2
+root@debian-4gb-fsn1-2:~# sudo -E rm -rf /tmp/chr*
+sudo -E mkdir /tmp/chr-test/
+root@debian-4gb-fsn1-2:~# sudo -E mount /dev/nbd0p1 /tmp/chr-test/
+
+root@debian-4gb-fsn1-2:~# ls /tmp/chr-test/ -l
+total 1
+drwxr-xr-x 3 root root 512 Mar 27 20:41 EFI
+root@debian-4gb-fsn1-2:~# sudo -E mkdir /tmp/chr-p2/
+root@debian-4gb-fsn1-2:~# sudo -E mount /dev/nbd0p2 /tmp/chr-p2/
+root@debian-4gb-fsn1-2:~# tree /tmp/chr-p2
+-bash: tree: command not found
+root@debian-4gb-fsn1-2:~# apt install tree
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  tree
+0 upgraded, 1 newly installed, 0 to remove and 14 not upgraded.
+Need to get 50.9 kB of archives.
+After this operation, 169 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main arm64 tree arm64 2.1.0-1 [50.9 kB]
+Fetched 50.9 kB in 0s (1,621 kB/s)
+Selecting previously unselected package tree.
+(Reading database ... 34031 files and directories currently installed.)
+Preparing to unpack .../tree_2.1.0-1_arm64.deb ...
+Unpacking tree (2.1.0-1) ...
+Setting up tree (2.1.0-1) ...
+Processing triggers for man-db (2.11.2-2) ...
+root@debian-4gb-fsn1-2:~# tree /tmp/chr-p2
+/tmp/chr-p2
+├── rw
+└── var
+    └── pdb
+        └── system
+
+5 directories, 0 files
+root@debian-4gb-fsn1-2:~#
+
