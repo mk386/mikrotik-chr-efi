@@ -1,0 +1,20 @@
+# https://forum.mikrotik.com/viewtopic.php?p=1070624
+
+apt update && apt install -y unzip
+curl -L https://cdn.mikrotik.com/routeros/7.15beta9/chr-7.15beta9.img.zip > mikrotik-chr.zip
+funzip mikrotik-chr.zip > mikrotik-chr.img
+dd if=./mikrotik-chr.img of=/dev/sda bs=1M
+sync && reboot
+
+apt update && apt install -y unzip
+curl -L https://cdn.mikrotik.com/routeros/7.15beta9/chr-7.15beta9-arm64.img.zip > mikrotik-chr.zip
+funzip mikrotik-chr.zip > mikrotik-chr.img
+dd if=./mikrotik-chr.img of=/dev/sda bs=1M
+sync && reboot
+
+apt update && apt install -y unzip
+curl -L https://cdn.mikrotik.com/routeros/7.15rc1/chr-7.15rc1-arm64.img.zip > mikrotik-chr.zip
+funzip mikrotik-chr.zip > mikrotik-chr.img
+dd if=./mikrotik-chr.img of=/dev/sda bs=1M
+sync && reboot
+
