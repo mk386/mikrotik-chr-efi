@@ -18,3 +18,14 @@ funzip mikrotik-chr.zip > mikrotik-chr.img
 dd if=./mikrotik-chr.img of=/dev/sda bs=1M
 sync && reboot
 
+
+
+https://download.mikrotik.com/routeros/7.14.3/chr-7.14.3.img.zip
+
+apt update && apt install -y unzip
+curl -L https://download.mikrotik.com/routeros/7.15rc1/chr-7.15rc1-arm64.img.zip > mikrotik-chr.zip
+funzip mikrotik-chr.zip > mikrotik-chr.img
+dd if=./mikrotik-chr.img of=/dev/sda bs=1M iflag=fullblock
+sync && reboot
+
+
