@@ -1,0 +1,278 @@
+
+==============================================================================
+
+You may only use this Speedtest software and information generated
+from it for personal, non-commercial use, through a command line
+interface on a personal computer. Your use of this software is subject
+to the End User License Agreement, Terms of Use and Privacy Policy at
+these URLs:
+
+        https://www.speedtest.net/about/eula
+        https://www.speedtest.net/about/terms
+        https://www.speedtest.net/about/privacy
+
+==============================================================================
+
+Do you accept the license? [type YES to accept]: YES
+License acceptance recorded. Continuing.
+
+
+   Speedtest by Ookla
+
+     Server: SoftEther Corporation - Tsukuba (id = 7139)
+        ISP: Oracle Cloud
+    Latency:     3.44 ms   (0.12 ms jitter)
+   Download:   964.90 Mbps (data used: 1.4 GB)
+     Upload:   922.81 Mbps (data used: 1.2 GB)
+Packet Loss:     0.0%
+ Result URL: https://www.speedtest.net/result/c/cd60b8f6-4313-4ffd-bb51-1c3492c9661f
+ubuntu@arm-1c4g:~/speedtest$
+
+
+Geekbench 5.4.1 Preview : https://www.geekbench.com/
+
+Geekbench 5 for Linux/AArch64 is a preview build. Preview builds require an
+active Internet connection and automatically upload benchmark results to the
+Geekbench Browser.
+
+  Running Gathering system information
+System Information
+  Operating System              Ubuntu 22.04.4 LTS
+  Kernel                        Linux 5.15.0-1051-oracle aarch64
+  Model                         QEMU KVM Virtual Machine
+  Motherboard                   N/A
+
+Processor Information
+  Name                          ARM ARMv8
+  Topology                      1 Processor, 1 Core
+  Identifier                    ARM implementer 65 architecture 8 variant 3 part 3340 revision 1
+  Base Frequency                0.00 Hz
+
+Memory Information
+  Size                          3.82 GB
+
+
+Single-Core
+  Running AES-XTS
+  Running Text Compression
+  Running Image Compression
+  Running Navigation
+  Running HTML5
+  Running SQLite
+  Running PDF Rendering
+  Running Text Rendering
+  Running Clang
+  Running Camera
+  Running N-Body Physics
+  Running Rigid Body Physics
+  Running Gaussian Blur
+  Running Face Detection
+  Running Horizon Detection
+  Running Image Inpainting
+  Running HDR
+  Running Ray Tracing
+  Running Structure from Motion
+  Running Speech Recognition
+  Running Machine Learning
+
+Multi-Core
+  Running AES-XTS
+  Running Text Compression
+  Running Image Compression
+  Running Navigation
+  Running HTML5
+  Running SQLite
+  Running PDF Rendering
+  Running Text Rendering
+  Running Clang
+  Running Camera
+  Running N-Body Physics
+  Running Rigid Body Physics
+  Running Gaussian Blur
+  Running Face Detection
+  Running Horizon Detection
+  Running Image Inpainting
+  Running HDR
+  Running Ray Tracing
+  Running Structure from Motion
+  Running Speech Recognition
+  Running Machine Learning
+
+
+Uploading results to the Geekbench Browser. This could take a minute or two
+depending on the speed of your internet connection.
+
+Upload succeeded. Visit the following link and view your results online:
+
+  https://browser.geekbench.com/v5/cpu/22420798
+
+Visit the following link and add this result to your profile:
+
+  https://browser.geekbench.com/v5/cpu/22420798/claim?key=115369
+
+ubuntu@arm-1c4g:~/geekbench5/Geekbench-5.4.1-LinuxARMPreview$
+
+
+
+
+###############################################################################
+
+Image details
+Operating system: Custom
+Version: Custom
+Image: Rocky-8-OCP-8.7-20230215.0.aarch64.uefi
+
+
+Shape configuration
+Shape: VM.Standard.A1.Flex
+OCPU count: 1
+Network bandwidth (Gbps): 1
+Memory (GB): 4
+Local disk: Block storage only
+
+
+
+[root@arm-1c4g speedtest]# ./speedtest
+==============================================================================
+
+You may only use this Speedtest software and information generated
+from it for personal, non-commercial use, through a command line
+interface on a personal computer. Your use of this software is subject
+to the End User License Agreement, Terms of Use and Privacy Policy at
+these URLs:
+
+        https://www.speedtest.net/about/eula
+        https://www.speedtest.net/about/terms
+        https://www.speedtest.net/about/privacy
+
+==============================================================================
+
+Do you accept the license? [type YES to accept]: YES
+License acceptance recorded. Continuing.
+
+
+   Speedtest by Ookla
+
+     Server: サーバーならDDPS.jp - Tokyo (id = 60324)
+        ISP: Oracle Cloud
+    Latency:     1.33 ms   (0.06 ms jitter)
+   Download:   957.27 Mbps (data used: 1.4 GB)
+     Upload:  1003.65 Mbps (data used: 478.4 MB)
+Packet Loss:     0.0%
+ Result URL: https://www.speedtest.net/result/c/89d79600-888d-45bd-bace-1740ba048fd9
+[root@arm-1c4g speedtest]#
+
+
+[root@arm-1c4g Geekbench-5.4.1-LinuxARMPreview]# ./geekbench5
+Geekbench 5.4.1 Preview : https://www.geekbench.com/
+
+Geekbench 5 for Linux/AArch64 is a preview build. Preview builds require an
+active Internet connection and automatically upload benchmark results to the
+Geekbench Browser.
+
+  Running Gathering system information
+System Information
+  Operating System              Rocky Linux 8.7 (Green Obsidian)
+  Kernel                        Linux 4.18.0-425.10.1.el8_7.aarch64 aarch64
+  Model                         QEMU KVM Virtual Machine
+  Motherboard                   N/A
+
+Processor Information
+  Name                          ARM ARMv8
+  Topology                      1 Processor, 1 Core
+  Identifier                    ARM implementer 65 architecture 8 variant 3 part 3340 revision 1
+  Base Frequency                0.00 Hz
+
+Memory Information
+  Size                          3.44 GB
+
+
+Single-Core
+  Running AES-XTS
+  Running Text Compression
+  Running Image Compression
+  Running Navigation
+  Running HTML5
+  Running SQLite
+  Running PDF Rendering
+  Running Text Rendering
+  Running Clang
+  Running Camera
+  Running N-Body Physics
+  Running Rigid Body Physics
+  Running Gaussian Blur
+  Running Face Detection
+  Running Horizon Detection
+  Running Image Inpainting
+  Running HDR
+  Running Ray Tracing
+  Running Structure from Motion
+  Running Speech Recognition
+  Running Machine Learning
+
+Multi-Core
+  Running AES-XTS
+  Running Text Compression
+  Running Image Compression
+  Running Navigation
+  Running HTML5
+  Running SQLite
+  Running PDF Rendering
+  Running Text Rendering
+  Running Clang
+  Running Camera
+  Running N-Body Physics
+  Running Rigid Body Physics
+  Running Gaussian Blur
+  Running Face Detection
+  Running Horizon Detection
+  Running Image Inpainting
+  Running HDR
+  Running Ray Tracing
+  Running Structure from Motion
+  Running Speech Recognition
+  Running Machine Learning
+
+
+Uploading results to the Geekbench Browser. This could take a minute or two
+depending on the speed of your internet connection.
+
+Upload succeeded. Visit the following link and view your results online:
+
+  https://browser.geekbench.com/v5/cpu/22420832
+
+Visit the following link and add this result to your profile:
+
+  https://browser.geekbench.com/v5/cpu/22420832/claim?key=755918
+
+[root@arm-1c4g Geekbench-5.4.1-LinuxARMPreview]#
+
+
+[root@arm-1c4g ~]# ls -l
+total 16416
+-rw-r-xr--. 1 root root 16790781 Apr 23 05:59 chr-7.15rc1-arm64.img.zip
+drwxr-xr-x. 3 root root       91 Apr 23 05:54 geekbench5
+-rw-------. 1 root root    14371 Feb 15  2023 original-ks.cfg
+drwxr-xr-x. 2 root root      109 Apr 23 05:54 speedtest
+[root@arm-1c4g ~]# cp chr-7.15rc1-arm64.img.zip mikrotik-chr.zip
+[root@arm-1c4g ~]# funzip mikrotik-chr.zip > mikrotik-chr.img
+[root@arm-1c4g ~]# umount -l /dev/sda1
+[root@arm-1c4g ~]# dd if=./mikrotik-chr.img of=/dev/sda bs=1M iflag=fullblock
+128+0 records in
+128+0 records out
+134217728 bytes (134 MB, 128 MiB) copied, 0.0252028 s, 5.3 GB/s
+[root@arm-1c4g ~]# sync && reboot
+
+
+###############################################################################
+
+yum install -y unzip
+scp luffy@sd-ams1.hkvms.com:~/chr-7.15rc1-arm64.img.zip ./
+cp chr-7.15rc1-arm64.img.zip mikrotik-chr.zip
+funzip mikrotik-chr.zip > mikrotik-chr.img
+umount -l /dev/sda1
+dd if=./mikrotik-chr.img of=/dev/sda bs=1M iflag=fullblock
+sync && reboot
+
+
+

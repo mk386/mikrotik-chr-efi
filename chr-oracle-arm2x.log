@@ -1,0 +1,103 @@
+
+ubuntu@ocft-sjc-a2c12r-1:~/speedtest$ ./speedtest
+
+   Speedtest by Ookla
+
+     Server: Misaka Network, Inc. - San Jose, CA (id = 49365)
+        ISP: Oracle Cloud
+    Latency:     0.36 ms   (0.11 ms jitter)
+   Download:  1972.01 Mbps (data used: 2.8 GB)
+     Upload:  1978.90 Mbps (data used: 893.5 MB)
+Packet Loss:     0.0%
+ Result URL: https://www.speedtest.net/result/c/bad14cf5-c6b2-478d-a095-75e66ce840cb
+ubuntu@ocft-sjc-a2c12r-1:~/speedtest$
+
+
+
+
+
+ubuntu@ocft-sjc-a2c12r-1:~/geekbench5/Geekbench-5.4.1-LinuxARMPreview$ ./geekbench5
+Geekbench 5.4.1 Preview : https://www.geekbench.com/
+
+Geekbench 5 for Linux/AArch64 is a preview build. Preview builds require an
+active Internet connection and automatically upload benchmark results to the
+Geekbench Browser.
+
+  Running Gathering system information
+System Information
+  Operating System              Ubuntu 20.04.3 LTS
+  Kernel                        Linux 5.11.0-1028-oracle aarch64
+  Model                         QEMU KVM Virtual Machine
+  Motherboard                   N/A
+
+Processor Information
+  Name                          ARM ARMv8
+  Topology                      1 Processor, 1 Core, 2 Threads
+  Identifier                    ARM implementer 65 architecture 8 variant 3 part 3340 revision 1
+  Base Frequency                0.00 Hz
+
+Memory Information
+  Size                          11.7 GB
+
+
+Single-Core
+  Running AES-XTS
+  Running Text Compression
+  Running Image Compression
+  Running Navigation
+  Running HTML5
+  Running SQLite
+  Running PDF Rendering
+  Running Text Rendering
+  Running Clang
+  Running Camera
+  Running N-Body Physics
+  Running Rigid Body Physics
+  Running Gaussian Blur
+  Running Face Detection
+  Running Horizon Detection
+  Running Image Inpainting
+  Running HDR
+  Running Ray Tracing
+  Running Structure from Motion
+  Running Speech Recognition
+  Running Machine Learning
+
+Multi-Core
+  Running AES-XTS
+  Running Text Compression
+  Running Image Compression
+  Running Navigation
+  Running HTML5
+  Running SQLite
+  Running PDF Rendering
+  Running Text Rendering
+  Running Clang
+  Running Camera
+  Running N-Body Physics
+  Running Rigid Body Physics
+  Running Gaussian Blur
+  Running Face Detection
+  Running Horizon Detection
+  Running Image Inpainting
+  Running HDR
+  Running Ray Tracing
+  Running Structure from Motion
+  Running Speech Recognition
+  Running Machine Learning
+
+
+Uploading results to the Geekbench Browser. This could take a minute or two
+depending on the speed of your internet connection.
+
+Upload succeeded. Visit the following link and view your results online:
+
+  https://browser.geekbench.com/v5/cpu/22420676
+
+Visit the following link and add this result to your profile:
+
+  https://browser.geekbench.com/v5/cpu/22420676/claim?key=746699
+
+ubuntu@ocft-sjc-a2c12r-1:~/geekbench5/Geekbench-5.4.1-LinuxARMPreview$
+
+
